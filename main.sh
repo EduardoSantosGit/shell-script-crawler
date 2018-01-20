@@ -13,7 +13,15 @@ _INDEX_OF()
     PARAM=$2
     LISTINDEXOF=$( echo $TEXTINDEX | grep -aob $PARAM | grep -oE '[0-9]+') 
     ARRINDEX=($LISTINDEXOF)
-    INDEXOF=${ARRINDEX[0]}
+    INDEXOFCURRENT=${ARRINDEX[0]}
+}
+
+_SUBSTRING()
+{
+    POSITION=$1
+    FLOOR=$2
+    TEXT=$3
+    SUBSTRINGCURRENT="${TEXT:POSITION:FLOOR}"
 }
 
 ###
@@ -24,4 +32,5 @@ URL_SITE="https://www.apple.com/"
 SEARCH="footer"
 _REQUEST_GET $URL_SITE
 _INDEX_OF "$PARSER" "$SEARCH"
+_SUBSTRING 10 10 "$PARSER"
 echo "End of script..."
