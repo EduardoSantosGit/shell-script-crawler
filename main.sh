@@ -24,6 +24,17 @@ _SUBSTRING()
     SUBSTRINGCURRENT="${TEXT:POSITION:FLOOR}"
 }
 
+_SCRAP_BLOCK_PAGE()
+{
+    TEXT=$1
+    INDEXON=$2
+    INDEXLAST=$3
+    
+    _INDEX_OF "$TEXT" "$INDEXON"
+    FIRSTINDEX=$INDEXOFCURRENT
+    echo "$FIRSTINDEX"
+}
+
 ###
 # Main
 ###
@@ -31,6 +42,7 @@ echo "Start of script..."
 URL_SITE="https://www.apple.com/"
 SEARCH="footer"
 _REQUEST_GET $URL_SITE
-_INDEX_OF "$PARSER" "$SEARCH"
-_SUBSTRING 10 10 "$PARSER"
+#_INDEX_OF "$PARSER" "$SEARCH"
+#_SUBSTRING 10 10 "$PARSER"
+_SCRAP_BLOCK_PAGE "o texto estas aqui" "texto" "aqui"
 echo "End of script..."
