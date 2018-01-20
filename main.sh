@@ -4,7 +4,7 @@ _REQUEST_GET()
 {
   URL=$1
   BODY=$(curl -s $URL)
-  PARSER="$BODY"
+  TEXTBODY="$BODY"
 }
 
 _INDEX_OF()
@@ -52,14 +52,19 @@ _SCRAP_BLOCK_PAGE()
     BLOCKCURRENT=$SUBSTRINGCURRENT
 }
 
+_GET_NUMBERS_NPM()
+{
+    NPMCOMPLETE=$1
+    _SCRAP_BLOCK_PAGE "$NPMCOMPLETE" "By the numbers" "ul"
+    echo "$BLOCKCURRENT"
+}
+
+
 ###
 # Main
 ###
 echo "Start of script..."
-URL_SITE="https://www.apple.com/"
-SEARCH="footer"
+URL_SITE="https://www.npmjs.com/"
 _REQUEST_GET $URL_SITE
-#_INDEX_OF "$PARSER" "$SEARCH"
-#_SUBSTRING 10 10 "$PARSER"
-_SCRAP_BLOCK_PAGE "o texto estas aqui" "texto" "aqui"
+_GET_NUMBERS_NPM "$TEXTBODY"
 echo "End of script..."
