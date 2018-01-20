@@ -1,22 +1,27 @@
 #!/bin/sh
 
-_request_get()
+_REQUEST_GET()
 {
   URL=$1
-  body=$(curl -s $URL)
-  parser="$body"
+  BODY=$(curl -s $URL)
+  PARSER="$BODY"
 }
 
-_index_of()
+_INDEX_OF()
 {
-    STRING=$1
-    echo $STRING | grep -aob '' | grep -oE '[0-9]+'
+    TEXTINDEX=$1
+    PARAM=$2
+    LISTINDEXOF=$( echo $TEXTINDEX | grep -aob $PARAM | grep -oE '[0-9]+') 
+    ARRINDEX=($LISTINDEXOF)
+    INDEXOF=${ARRINDEX[0]}
 }
 
 ###
 # Main
 ###
 echo "Start of script..."
-_request_get https://www.apple.com/
-_index_of $parser
+URL_SITE="https://www.apple.com/"
+SEARCH="footer"
+_REQUEST_GET $URL_SITE
+_INDEX_OF "$PARSER" "$SEARCH"
 echo "End of script..."
