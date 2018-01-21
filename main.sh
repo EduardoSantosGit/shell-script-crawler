@@ -11,7 +11,7 @@ _INDEX_OF()
 {
     TEXTINDEX=$1
     PARAM=$2
-    LISTINDEXOF=$( echo $TEXTINDEX | grep -aob $PARAM | grep -oE '[0-9]+') 
+    LISTINDEXOF=$( echo $TEXTINDEX | grep -aobs $PARAM | grep -oE '[0-9]+') 
     ARRINDEX=($LISTINDEXOF)
     INDEXOFCURRENT=${ARRINDEX[0]}
 }
@@ -52,10 +52,10 @@ _SCRAP_BLOCK_PAGE()
     BLOCKCURRENT=$SUBSTRINGCURRENT
 }
 
-_GET_NUMBERS_NPM()
+_GET_LOT_PACKAGES_NPM()
 {
     NPMCOMPLETE=$1
-    _SCRAP_BLOCK_PAGE "$NPMCOMPLETE" "By the numbers" "ul"
+    _SCRAP_BLOCK_PAGE "$NPMCOMPLETE" "Packages people 'npm install' a lot" "<!-- help pane -->"
     echo "$BLOCKCURRENT"
 }
 
@@ -66,5 +66,6 @@ _GET_NUMBERS_NPM()
 echo "Start of script..."
 URL_SITE="https://www.npmjs.com/"
 _REQUEST_GET $URL_SITE
-_GET_NUMBERS_NPM "$TEXTBODY"
+_GET_LOT_PACKAGES_NPM "$TEXTBODY"
+
 echo "End of script..."
